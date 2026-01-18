@@ -44,7 +44,7 @@ Proyecto realizado como práctica del bootcamp de **KeepCoding – Desarrollo We
 ---
 
 ## 📁 Estructura del proyecto
-
+```
 src/
 │
 ├── components/
@@ -69,7 +69,7 @@ src/
 ├── App.tsx
 ├── main.tsx
 └── index.css
-
+```
 ---
 
 ## Seguridad y control de acceso
