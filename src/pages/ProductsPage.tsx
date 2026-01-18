@@ -5,7 +5,6 @@ import type { Product } from "../services/products"
 import "./ProductsPage.css"
 import LogoutButton from "../components/LogoutButton"
 
-
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([])
     const [loading, setLoading] = useState(true)
@@ -17,29 +16,35 @@ export default function ProductsPage() {
 
     useEffect(() => {
         async function fetchProducts() {
-        try {
-            const data = await getProducts()
-            setProducts(data)
-        } catch {
-            setError("Error al cargar productos")
-        } finally {
-            setLoading(false)
-        }
+            try {
+                const data = await getProducts()
+                setProducts(data)
+            } catch {
+                setError("Error al cargar productos")
+            } finally {
+                setLoading(false)
+            }
         }
         fetchProducts()
     }, [])
 
+    // Generar lista de tags únicos para el select
+    const uniqueTags = Array.from(
+        new Set(products.flatMap(p => p.tags))
+    )
+
+    // Filtrar productos según inputs
     const filteredProducts = products.filter(p => {
         const matchesName = p.name.toLowerCase().includes(filterName.toLowerCase())
         const matchesTag = filterTag
-        ? p.tags.some(t => t.toLowerCase() === filterTag.toLowerCase())
-        : true
+            ? p.tags.some(t => t.toLowerCase() === filterTag.toLowerCase())
+            : true
         const matchesOffer =
-        filterOffer === "all"
-            ? true
-            : filterOffer === "sale"
-            ? p.isOnSale
-            : !p.isOnSale
+            filterOffer === "all"
+                ? true
+                : filterOffer === "sale"
+                ? p.isOnSale
+                : !p.isOnSale
 
         return matchesName && matchesTag && matchesOffer
     })
@@ -48,7 +53,6 @@ export default function ProductsPage() {
     if (error) return <p>{error}</p>
     if (products.length === 0) return <p>No hay productos. <Link to="/products/new">Crea uno</Link></p>
 
-
     return (
         <div className="products-page">
             <LogoutButton />
@@ -56,35 +60,38 @@ export default function ProductsPage() {
 
             <div className="filters">
                 <input
-                type="text"
-                placeholder="Filtrar por nombre"
-                value={filterName}
-                onChange={e => setFilterName(e.target.value)}
+                    type="text"
+                    placeholder="Filtrar por nombre"
+                    value={filterName}
+                    onChange={e => setFilterName(e.target.value)}
                 />
+
                 <select value={filterTag} onChange={e => setFilterTag(e.target.value)}>
-                <option value="">Todos los tags</option>
-                <option value="motor">motor</option>
-                <option value="work">work</option>
-                <option value="lifestyle">lifestyle</option>
-                <option value="mobile">mobile</option>
-                <option value="motorcycle">motorcycle</option>
+                    <option value="">Todos los tags</option>
+                    {uniqueTags.map(tag => (
+                        <option key={tag} value={tag}>
+                            {tag}
+                        </option>
+                    ))}
                 </select>
+
                 <select value={filterOffer} onChange={e => setFilterOffer(e.target.value as any)}>
-                <option value="all">Todos</option>
-                <option value="sale">Oferta</option>
-                <option value="normal">Normal</option>
+                    <option value="all">Todos</option>
+                    <option value="sale">Oferta</option>
+                    <option value="normal">Normal</option>
                 </select>
-                <button onClick={() => {setFilterName(""); setFilterTag(""); setFilterOffer("all")}}>
+
+                <button onClick={() => { setFilterName(""); setFilterTag(""); setFilterOffer("all") }}>
                     Reset filtros
                 </button>
             </div>
 
             <ul className="products-list">
                 {filteredProducts.map(p => (
-                <li key={p.id}>
-                    <Link to={`/products/${p.id}`}><strong>{p.name}</strong></Link>{" "}
-                    - ${p.price} - {p.tags.join(", ")} - {p.isOnSale ? "Oferta" : "Normal"}
-                </li>
+                    <li key={p.id}>
+                        <Link to={`/products/${p.id}`}><strong>{p.name}</strong></Link>{" "}
+                        - ${p.price} - {p.tags.join(", ")} - {p.isOnSale ? "Oferta" : "Normal"}
+                    </li>
                 ))}
             </ul>
         </div>
