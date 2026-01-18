@@ -31,7 +31,9 @@ export default function ProductsPage() {
 
     const filteredProducts = products.filter(p => {
         const matchesName = p.name.toLowerCase().includes(filterName.toLowerCase())
-        const matchesTag = filterTag ? p.tags.includes(filterTag) : true
+        const matchesTag = filterTag
+        ? p.tags.some(t => t.toLowerCase() === filterTag.toLowerCase())
+        : true
         const matchesOffer =
         filterOffer === "all"
             ? true
@@ -45,6 +47,7 @@ export default function ProductsPage() {
     if (loading) return <p>Cargando productos...</p>
     if (error) return <p>{error}</p>
     if (products.length === 0) return <p>No hay productos. <Link to="/products/new">Crea uno</Link></p>
+
 
     return (
         <div className="products-page">
@@ -71,6 +74,9 @@ export default function ProductsPage() {
                 <option value="sale">Oferta</option>
                 <option value="normal">Normal</option>
                 </select>
+                <button onClick={() => {setFilterName(""); setFilterTag(""); setFilterOffer("all")}}>
+                    Reset filtros
+                </button>
             </div>
 
             <ul className="products-list">
