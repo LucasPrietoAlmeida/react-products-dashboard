@@ -10,6 +10,7 @@ export default function NewProductPage() {
     const [description, setDescription] = useState("")
     const [tags, setTags] = useState("")
     const [isOnSale, setIsOnSale] = useState(false)
+    const [createdMessage, setCreatedMessage] = useState("")
 
     const isValid = name && price && description
 
@@ -26,12 +27,15 @@ export default function NewProductPage() {
         }
 
         const created = await createProduct(product)
+        setCreatedMessage("Producto creado correctamente")
         navigate(`/products/${created.id}`)
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <h2>Nuevo producto</h2>
+
+            {createdMessage && <p className="success">{createdMessage}</p>}
 
             <input placeholder="Nombre" value={name} onChange={e => setName(e.target.value)} />
             <input type="number" placeholder="Precio" value={price} onChange={e => setPrice(e.target.value)} />

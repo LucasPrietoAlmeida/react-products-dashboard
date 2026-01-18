@@ -10,6 +10,7 @@ export default function ProductPage() {
     const [product, setProduct] = useState<Product | null>(null)
     const [loading, setLoading] = useState(true)
     const [confirmDelete, setConfirmDelete] = useState(false)
+    const [deletedMessage, setDeletedMessage] = useState("")
 
     useEffect(() => {
         if (!id) return
@@ -25,6 +26,13 @@ export default function ProductPage() {
             .finally(() => setLoading(false))
     }, [id, navigate])
 
+    const handleDelete = async () => {
+        if (!product) return
+        await deleteProduct(product.id)
+        setDeletedMessage("Producto borrado correctamente")
+        navigate("/products")
+    }
+
     if (loading) return <p>Cargando producto...</p>
     if (!product) return null
 
@@ -36,6 +44,8 @@ export default function ProductPage() {
             <p>Tags: {product.tags.join(", ")}</p>
             <p>{product.isOnSale ? "En oferta" : "No está en oferta"}</p>
 
+            {deletedMessage && <p className="success">{deletedMessage}</p>}
+
             {!confirmDelete ? (
                 <button onClick={() => setConfirmDelete(true)}>
                     Borrar producto
@@ -43,17 +53,8 @@ export default function ProductPage() {
             ) : (
                 <>
                     <p>¿Seguro que quieres borrar este producto?</p>
-                    <button
-                        onClick={async () => {
-                            await deleteProduct(product.id)
-                            navigate("/products")
-                        }}
-                    >
-                        Sí, borrar
-                    </button>
-                    <button onClick={() => setConfirmDelete(false)}>
-                        Cancelar
-                    </button>
+                    <button onClick={handleDelete}>Sí, borrar</button>
+                    <button onClick={() => setConfirmDelete(false)}>Cancelar</button>
                 </>
             )}
         </div>
