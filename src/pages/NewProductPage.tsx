@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createProduct } from "../services/products"
+import "./FormPage.css"
 
 export default function NewProductPage() {
     const navigate = useNavigate()
@@ -10,7 +11,6 @@ export default function NewProductPage() {
     const [description, setDescription] = useState("")
     const [tags, setTags] = useState("")
     const [isOnSale, setIsOnSale] = useState(false)
-    const [createdMessage, setCreatedMessage] = useState("")
 
     const isValid = name && price && description
 
@@ -27,27 +27,24 @@ export default function NewProductPage() {
         }
 
         const created = await createProduct(product)
-        setCreatedMessage("Producto creado correctamente")
         navigate(`/products/${created.id}`)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-page">
             <h2>Nuevo producto</h2>
 
-            {createdMessage && <p className="success">{createdMessage}</p>}
+            <input className="form-input" placeholder="Nombre" value={name} onChange={e => setName(e.target.value)} />
+            <input className="form-input" type="number" placeholder="Precio" value={price} onChange={e => setPrice(e.target.value)} />
+            <textarea className="form-input" placeholder="Descripción" value={description} onChange={e => setDescription(e.target.value)} />
+            <input className="form-input" placeholder="Tags (separados por coma)" value={tags} onChange={e => setTags(e.target.value)} />
 
-            <input placeholder="Nombre" value={name} onChange={e => setName(e.target.value)} />
-            <input type="number" placeholder="Precio" value={price} onChange={e => setPrice(e.target.value)} />
-            <textarea placeholder="Descripción" value={description} onChange={e => setDescription(e.target.value)} />
-            <input placeholder="Tags (separados por coma)" value={tags} onChange={e => setTags(e.target.value)} />
-
-            <label>
+            <label className="form-checkbox">
                 <input type="checkbox" checked={isOnSale} onChange={e => setIsOnSale(e.target.checked)} />
                 En oferta
             </label>
 
-            <button type="submit" disabled={!isValid}>Crear producto</button>
+            <button type="submit" className="form-button" disabled={!isValid}>Crear producto</button>
         </form>
     )
 }

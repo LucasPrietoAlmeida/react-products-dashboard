@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { getProducts } from "../services/products"
 import type { Product } from "../services/products"
 import "./ProductsPage.css"
-import LogoutButton from "../components/LogoutButton"
+
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([])
@@ -55,7 +55,6 @@ export default function ProductsPage() {
 
     return (
         <div className="products-page">
-            <LogoutButton />
             <h2>Listado de Productos</h2>
 
             <div className="filters">

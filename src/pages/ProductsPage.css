@@ -1,19 +1,35 @@
 .products-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-family: sans-serif;
+}
+
+.header {
     display: flex;
-    flex-direction: column;
-    padding: 16px;
-    max-width: 600px;
-    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .filters {
-    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .filters input,
 .filters select {
-    margin-right: 8px;
-    padding: 4px 8px;
+    padding: 6px 8px;
+    font-size: 14px;
+}
+
+.reset-button {
+    padding: 6px 12px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .products-list {
@@ -21,22 +37,17 @@
     padding: 0;
 }
 
-.products-list li {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
+.product-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-.logout-button {
-    align-self: flex-end;
-    margin-bottom: 16px;
-    padding: 6px 12px;
-    background-color: #444;
-    color: white;
-    border: 1px solid #666;
-    border-radius: 4px;
-    cursor: pointer;
+.status {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16px;
 }
 
-.logout-button:hover {
-    background-color: #666;
+.status.error {
+    color: red;
 }

@@ -5,10 +5,12 @@ import ProductPage from "./pages/ProductPage"
 import NewProductPage from "./pages/NewProductPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ProtectedRoute from "./routes/ProtectedRoute"
+import Navbar from "./pages/Navbar"
 
 function App() {
   return (
     <BrowserRouter>
+    <Navbar />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 

@@ -7,8 +7,6 @@ export interface Product {
     tags: string[]
     isOnSale: boolean
     description: string
-    image?: string
-    // agregar otros campos si los tengo en db.json
 }
 
 const API_URL = "http://localhost:8000/api/products"
