@@ -4,6 +4,7 @@ import ProductsPage from "./pages/ProductsPage"
 import ProductPage from "./pages/ProductPage"
 import NewProductPage from "./pages/NewProductPage"
 import NotFoundPage from "./pages/NotFoundPage"
+import ProtectedRoute from "./routes/ProtectedRoute"
 
 function App() {
   return (
@@ -11,10 +12,38 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/" element={<Navigate to="/products" replace />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/new" element={<NewProductPage />} />
-        <Route path="/products/:id" element={<ProductPage />} />
+        <Route 
+          path="/" 
+          element={
+          <ProtectedRoute>
+            <Navigate to="/products" replace />
+          </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/products" 
+          element={
+          <ProtectedRoute>
+            <ProductsPage />
+          </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/products/new"
+          element={
+            <ProtectedRoute>
+              <NewProductPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+        path="/products/:id" 
+        element={
+          <ProtectedRoute>
+            <ProductPage />
+          </ProtectedRoute>
+          } 
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
