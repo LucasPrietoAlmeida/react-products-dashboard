@@ -64,7 +64,7 @@ button:focus-visible {
 }
 
 .login-form h2 {
-  margin: 0 0 8px;
+  margin:8px;
   text-align: center;
 }
 
@@ -95,6 +95,92 @@ button:focus-visible {
 .error {
   color: red;
   font-size: 13px;
+}
+
+.products-page,
+.product-page,
+.new-product-page,
+.form-page {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.products-page h2,
+.product-page h2,
+.new-product-page h2,
+.form-page h2 {
+  margin-bottom: 16px;
+}
+
+input, select, textarea {
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #646cff;
+  background-color: #242424;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button.secondary {
+  background-color: #333;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+button.secondary:hover {
+  border-color: #646cff;
+}
+
+.products-list {
+  list-style: none;
+  padding: 0;
+}
+
+.products-list li {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+}
+
+.products-list li:last-child {
+  border-bottom: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.navbar .nav-link {
+  margin-right: 15px;
+  color: #fff;
+}
+
+.navbar .nav-link:hover {
+  color: #646cff;
+}
+
+.navbar .nav-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar .nav-button:hover {
+  border-color: #646cff;
 }
 
 

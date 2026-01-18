@@ -39,10 +39,17 @@ export default function NewProductPage() {
             <textarea className="form-input" placeholder="Descripción" value={description} onChange={e => setDescription(e.target.value)} />
             <input className="form-input" placeholder="Tags (separados por coma)" value={tags} onChange={e => setTags(e.target.value)} />
 
-            <label className="form-checkbox">
-                <input type="checkbox" checked={isOnSale} onChange={e => setIsOnSale(e.target.checked)} />
-                En oferta
-            </label>
+            <div className="checkbox-field">
+                <input
+                    id="isOnSale"
+                    type="checkbox"
+                    checked={isOnSale}
+                    onChange={e => setIsOnSale(e.target.checked)}
+                />
+                <label htmlFor="isOnSale">En oferta</label>
+            </div>
+
+
 
             <button type="submit" className="form-button" disabled={!isValid}>Crear producto</button>
         </form>
