@@ -1,73 +1,123 @@
-# React + TypeScript + Vite
+# Product Manager App (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación frontend desarrollada con **React + TypeScript** para la gestión de productos, con autenticación, rutas protegidas y consumo de una API REST.
 
-Currently, two official plugins are available:
+Proyecto realizado como práctica del bootcamp de **KeepCoding – Desarrollo Web Full Stack**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Autenticación
+- Login con usuario y contraseña
+- Opción **Recordar sesión** (localStorage / sessionStorage)
+- Protección de rutas mediante token
+- Logout seguro
 
-## Expanding the ESLint configuration
+### Productos
+- Listado de productos
+- Ver detalle de un producto
+- Crear nuevos productos
+- Eliminar productos con confirmación
+- Filtros por:
+  - Nombre
+  - Tag
+  - Estado (oferta / normal)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Navegación
+- Navbar global con enlaces
+- Navbar oculto en `/login`
+- Redirecciones automáticas según sesión
+- Página 404 personalizada
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tecnologías usadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **React**
+- **TypeScript**
+- **React Router DOM**
+- **CSS puro**
+- **Fetch API**
+- **Vite**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Estructura del proyecto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+│
+├── components/
+│ └── LogoutButton.tsx
+│
+├── pages/
+│ ├── LoginPage.tsx
+│ ├── ProductsPage.tsx
+│ ├── ProductPage.tsx
+│ ├── NewProductPage.tsx
+│ ├── Navbar.tsx
+│ └── NotFoundPage.tsx
+│
+├── routes/
+| ├── ProtectedLayout.tsx
+│ └── ProtectedRoute.tsx
+│
+├── services/
+│ ├── auth.ts
+│ └── products.ts
+│
+├── App.tsx
+├── main.tsx
+└── index.css
+
+---
+
+## Seguridad y control de acceso
+
+- Token almacenado según preferencia del usuario:
+  - `localStorage` → recordar sesión
+  - `sessionStorage` → sesión temporal
+- Rutas protegidas mediante `ProtectedRoute`
+
+---
+
+## Cómo ejecutar el proyecto
+
+### 1- Instalar dependencias
+npm install 
+
+### 2- Instalar dependencias
+npm run dev
+
+La app se ejecutará en:
+http://localhost:5173
+
+Es necesario tener el backend en ejecución en:
+http://localhost:8000
+
+---
+
+### Endpoints usados
+
+- POST /auth/login
+
+- GET /api/products
+
+- GET /api/products/:id
+
+- POST /api/products
+
+- DELETE /api/products/:id
+
+Todos los endpoints requieren Bearer Token, excepto login.
+
+### Estados contemplados
+
+- Loading
+
+- Error de autenticación
+
+- Error de carga
+
+- Lista vacía
+
